@@ -3,7 +3,7 @@
 echo Cleaning...
 rm -rf ./dist
 
-export PATH=PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/bin
 rm -rf node_modules && npm cache clean && npm i
 npm install --production
 
