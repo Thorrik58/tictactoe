@@ -3,6 +3,8 @@
 echo Cleaning...
 rm -rf ./dist
 
+export PATH=PATH:/usr/local/bin
+
 echo Building app
 grunt
 
