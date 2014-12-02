@@ -1,6 +1,7 @@
 #!/bin/bash
 
-
+#in order to fail on error
+set -e
 
 echo Cleaning...
 rm -rf ./dist
@@ -10,7 +11,6 @@ rm -rf node_modules && npm cache clean && npm i
 
 npm install
 bower install
-
 
 echo Building app
 grunt
