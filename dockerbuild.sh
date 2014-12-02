@@ -22,8 +22,6 @@ npm install --production
 
 echo Building docker image
 
-docker run -p 80:8080 -d -e "NODE_ENV=production" thorrik58/tictactoe
-
 docker build -t thorrik58/tictactoe .
 
 echo "Done"
