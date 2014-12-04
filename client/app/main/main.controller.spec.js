@@ -24,6 +24,6 @@ describe('Controller: MainCtrl', function () {
   //should be 4, just 3 for now because of need for test to fail
   it('should attach a list of things to the scope', function () {
     $httpBackend.flush();
-    expect(scope.awesomeThings.length).toBe(3);
+    expect(scope.awesomeThings.length).toBe(4);
   });
 });
