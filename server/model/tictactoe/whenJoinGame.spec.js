@@ -11,7 +11,7 @@ describe('join game command', function() {
       user: {
         userName: "Thorri"
       },
-      name: "The first game"
+      name: "The first game",
       timeStamp: "2014-12-02T11:29:29"
     }];
 
@@ -35,7 +35,7 @@ describe('join game command', function() {
 
     var actualEvents = tictactoe(given).executeCommand(when);
     should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
-    //should(actualEvents.eql(then));
+    //should(actualEvents.eql(then)); works?????
   });
-})
+});
 
