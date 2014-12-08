@@ -5,16 +5,55 @@ var _ = require('lodash');
 
 module.exports = function(history){
   var gameFull = false;
+  var gridSize = 3;
+  var gameGrid = [['','',''],['','','',],['','','']];
+  var gameScore = [0,0,0,0,0,0,0,0,0];
+  var moveCount = 0;
 
-  _.each(history, function(event){
+  function processEvent(event){
     if(event.event === "GameJoined"){
       gameFull = true;
     }
-  });
+    if (event.event === 'MovePlaced'){
+      var point = event.move.side==='X'? 1:-1; //if x number 1 gets assigned to that slot, if O , -1 gets assigned
+      var row = event.move.coordinates[0];
+      var col = event.move.coordinates[1];
 
-  return {
-    gameFull : function(){
+      //these four lines are used to determine if the game is over
+      gameScore[row] += point; // where point is either +1 or -1
+      gameScore[gridSize + col] += point;
+      if (row === col) gameScore[2*gridSize] += point;
+      if (gridSize - 1 - col === row) gameScore[2*gridSize + 1] += point;
+
+      gameGrid[row][col] = event.move.side;
+      moveCount++;
+    }
+  }
+
+  function processEvents(history){
+      _.each(history, processEvent);
+  };
+
+  processEvents(history);
+
+  return{
+    processEvents : processEvents,
+    gameFull: function(){
       return gameFull;
+    },
+    gameWon : function(){
+      return _.reduce(gameScore, function(won, score){
+          return won || score === 3 || score === -3;
+      }, false);
+    },
+    occupied : function(coords){
+      var row = coords[0];
+      var col = coords[1];
+      var squareToken = gameGrid[row][col];
+      return (squareToken === "X" || squareToken === "O");
+    },
+    gameDraw : function(){
+      return moveCount === gridSize*gridSize;
     }
   }
 };

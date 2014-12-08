@@ -29,7 +29,6 @@ module.exports = function(history){
             }];
           }
 
-          gameFull = true;
           return [{
             event: "GameJoined",
             user: cmd.user,
@@ -56,7 +55,7 @@ module.exports = function(history){
             move: cmd.move
           }];
 
-          gamestate.processEvents(events);
+          gameState.processEvents(events);
           if (gameState.gameWon()) {
             events.push(
               {
@@ -67,7 +66,18 @@ module.exports = function(history){
               }
             )
           }
-          return events;
+
+          if(gameState.gameDraw()){
+            events.push(
+              {
+                event: "GameDraw",
+                user: cmd.user,
+                name: cmd.name,
+                timeStamp: cmd.timeStamp
+              }
+            )
+          }
+          return events
         }
       };
       return cmdHandlers[cmd.cmd](cmd);

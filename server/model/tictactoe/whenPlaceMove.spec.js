@@ -23,7 +23,7 @@ var joinEvent = {
 
 function moveEvent(coordinates, side){
   return{
-    event: "movePlaced",
+    event: "MovePlaced",
     user:{
       userName: "Max"
     },
@@ -35,33 +35,34 @@ function moveEvent(coordinates, side){
     }
   };
 }
+/* jshint ignore:start */
 
 
-describe('place move command', function() {
+describe("place move command", function() {
   var given, when, then;
 
-  afterEach(function(){
+  afterEach(function () {
     var actualEvents = tictactoe(given).executeCommand(when);
-    should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then))
+    should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
   });
 
-  it('should emit place move event'), function(){
+  it('should emit place move event', function(){
     given = [createEvent, joinEvent];
 
     when = {
       cmd: "PlaceMove",
       user: {
-        userName: Max
+        userName: "Max"
       },
       name: "TheFirstGame",
       timeStamp: "2014-12-02T11:29:29",
       move: {
-        coordinates: [0, 0],
+        coordinates: [0,0],
         side: 'X'
       }
     };
 
     then = [moveEvent([0,0], 'X')];
-  }
-
+  })
 });
+/* jshint ignore:end */
