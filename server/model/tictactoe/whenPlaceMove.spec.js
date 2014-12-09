@@ -155,5 +155,59 @@ describe("Place move command", function() {
       }]
   })
 
+  it('should emit game won event on diagonal win', function(){
+    given = [createEvent, joinEvent, moveEvent([0,0], "O"), moveEvent([2,2], "O")];
+    when = {
+      cmd: "PlaceMove",
+      user: {
+        userName: "Max"
+      },
+      name: "TheFirstGame",
+      timeStamp: "2014-12-02T11:29:29",
+      move: {
+        coordinates: [1,1],
+        side: "O"
+      }
+    };
+
+    then = [
+      moveEvent([1,1],"O"),
+      {
+        event: "GameWon",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }]
+  })
+
+  it('should emit game won event on diagonal win, now mirrored from former test', function(){
+    given = [createEvent, joinEvent, moveEvent([0,2], "O"), moveEvent([2,0], "O")];
+    when = {
+      cmd: "PlaceMove",
+      user: {
+        userName: "Max"
+      },
+      name: "TheFirstGame",
+      timeStamp: "2014-12-02T11:29:29",
+      move: {
+        coordinates: [1,1],
+        side: "O"
+      }
+    };
+
+    then = [
+      moveEvent([1,1],"O"),
+      {
+        event: "GameWon",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }]
+  })
+
 })
 /* jshint ignore:end */
