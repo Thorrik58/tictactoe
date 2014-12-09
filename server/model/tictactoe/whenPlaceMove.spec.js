@@ -263,5 +263,46 @@ describe("Place move command", function() {
       }]
   })
 
+
+  // 00 01 02   x o x
+  // 10 11 12   o o x
+  // 20 21 22   x x o
+
+  it('should emit draw event', function(){
+    given = [createEvent, joinEvent,
+      moveEvent([0,0], "X"),
+      moveEvent([0,1], "O"),
+      moveEvent([0,2], "X"),
+      moveEvent([1,0], "O"),
+      moveEvent([1,1], "O"),
+      moveEvent([1,2], "X"),
+      moveEvent([2,0], "X"),
+      moveEvent([2,1], "X"),
+    ];
+    when = {
+      cmd: "PlaceMove",
+      user: {
+        userName: "Max"
+      },
+      name: "TheFirstGame",
+      timeStamp: "2014-12-02T11:29:29",
+      move: {
+        coordinates: [2,2],
+        side: "O"
+      }
+    };
+
+    then = [
+      moveEvent([2,2],"O"),
+      {
+        event: "GameDraw",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }]
+  })
+
 })
 /* jshint ignore:end */
