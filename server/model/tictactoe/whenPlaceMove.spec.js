@@ -35,7 +35,6 @@ function moveEvent(coordinates, side){
     }
   };
 }
-/* jshint ignore:start */
 
 
 describe("Place move command", function() {
@@ -305,4 +304,3 @@ describe("Place move command", function() {
   })
 
 })
-/* jshint ignore:end */
