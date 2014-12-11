@@ -4,6 +4,8 @@
 
 'use strict';
 
+console.debug = console.log;
+
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -19,6 +21,9 @@ require('./routes')(app);
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
+
+//app config
+app.appName ="TicTacToe";
 
 // Expose app
 exports = module.exports = app;
