@@ -6,6 +6,12 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
+    // the default configuration
+    junitReporter: {
+      outputFile: 'reports/test-results.xml',
+      suite: ''
+    },
+
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 

@@ -5,7 +5,7 @@ var boundedContext = require('../../model/tictactoe/boundedContext/boundedContex
 var tictactoeHandler = require('../../model/tictactoe/models/tictactoe');
 
 exports.createGame = function(req, res) {
-  console.debug("Creating game");
+  //console.debug("Creating game");
 
   var store = {
     loadEvents: function(id){
@@ -14,8 +14,8 @@ exports.createGame = function(req, res) {
     }
   }
 
-  var context = boundedContext(store, [tictactoeHandler]);
+  var context = boundedContext(store, tictactoeHandler);
   var result = context.handleCmd(req.body);
-  console.debug("Create game", result, req.body);
+  //console.debug("Create game", result, req.body);
   res.json(result);
 };

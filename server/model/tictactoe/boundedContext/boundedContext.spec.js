@@ -4,8 +4,11 @@ var _ = require('lodash');
 describe('tictactoe game context using stub', function() {
   it('should route command to instantiated tictactoe game with event stream from storage', function()
   {
+    var calledWithEventStoreId = undefined;
+
     var eventStub = {
       loadEvents: function(modelId){
+        calledWithEventStoreId = modelId;
         return[];
       }
     };
@@ -21,7 +24,7 @@ describe('tictactoe game context using stub', function() {
       }
     };
 
-    var cmdHandler = [tictactoe];
+    var cmdHandler = tictactoe;
 
     var gameContext = require('./boundedContext')(eventStub, cmdHandler);
 
@@ -31,19 +34,21 @@ describe('tictactoe game context using stub', function() {
 
     var events = gameContext.handleCmd(testCmd);
     should(executedCommand.id).be.exactly("123")
+    should(calledWithEventStoreId).be.exactly("123");
     should(events.length).be.exactly(0);
   })
 
   it('should route command to instantiated tictactoe game with event stream from store and return generated events, using mock style tests.', function(){
 
     var jm = require('jsmockito').JsMockito;
-
     jm.Integration.importTo(global);
 
     var mockStore = spy({
       loadEvents : function(){
     }
     });
+
+    console.debug(mockStore)
 
     when(mockStore).loadEvents('123').thenReturn([]);
 
@@ -54,11 +59,11 @@ describe('tictactoe game context using stub', function() {
 
     when(mockTicTacToe).executeCommand().thenReturn([]);
 
-    var commandHandlers = [function(){
+    var cmdHandler = function(){
       return mockTicTacToe
-    }];
+    };
 
-    var gameContext = require('./boundedContext')(mockStore, commandHandlers);
+    var gameContext = require('./boundedContext')(mockStore, cmdHandler);
 
     var testCmd = {
       id: "123"

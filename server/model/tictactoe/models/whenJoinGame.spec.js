@@ -35,7 +35,6 @@ describe('Join game command', function() {
 
     var actualEvents = tictactoe(given).executeCommand(when);
     should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
-    //should(actualEvents.eql(then)); works?????
   });
 
   it('should emit FullGameJoinAttempt event when game is full', function(){
@@ -78,7 +77,6 @@ describe('Join game command', function() {
 
     var actualEvents = tictactoe(given).executeCommand(when);
     should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
-    //should(actualEvents.eql(then)); works?????
   })
 });
 
