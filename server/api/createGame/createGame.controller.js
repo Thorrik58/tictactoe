@@ -1,11 +1,21 @@
 'use strict';
 
-var should = require('should');
-var tictactoe = require('../../model/tictactoe/aggregate/tictactoe');
+var _ = require('lodash');
+var boundedContext = require('../../model/tictactoe/boundedContext/boundedContext');
+var tictactoeHandler = require('../../model/tictactoe/models/tictactoe');
 
-console.log("Creating game");
+exports.createGame = function(req, res) {
+  console.debug("Creating game");
 
-exports.createGame = function(req, res){
-  res.json([]);
+  var store = {
+    loadEvents: function(id){
+      console.debug("Loading events for id", id);
+      return [];
+    }
+  }
+
+  var context = boundedContext(store, [tictactoeHandler]);
+  var result = context.handleCmd(req.body);
+  console.debug("Create game", result, req.body);
+  res.json(result);
 };
-

@@ -1,12 +1,17 @@
 var _ = require('lodash');
 
-module.exports = function(eventStore, commandHandler){
+module.exports = function(eventStore, cmdHandler){
   return {
-    handleCommand : function(cmd){
+    handleCmd : function(cmd){
       var eventStream = eventStore.loadEvents(cmd.id);
-      _.each(commandHandler, function(handler){
-        handler(eventStream).executeCommand(cmd);
-      })
+      var resultingEvents = [];
+      _.each(cmdHandler, function(handler){
+        var items = handler(eventStream).executeCommand(cmd);
+        console.debug("items",items);
+        resultingEvents = resultingEvents.concat(items);
+        console.debug("resulting events", resultingEvents);
+      });
+      return resultingEvents;
     }
   }
 }

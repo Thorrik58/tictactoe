@@ -5,21 +5,22 @@ describe('tictactoe game context using stub', function() {
   it('should route command to instantiated tictactoe game with event stream from storage', function()
   {
     var eventStub = {
-      loadEvent: function(modelId){
+      loadEvents: function(modelId){
         return[];
       }
     };
 
     var execCmd = {};
-    var ticTacToe = function(history){
+    var tictactoe = function(history){
       return{
-        execCmd : function(cmd){
-          execCmd = cmd;
+        executeCommand : function(cmd){
+          executeCommand = cmd;
+          return [];
         }
       }
     };
 
-    var cmdHandler = [ticTacToe];
+    var cmdHandler = [tictactoe];
 
     var gameContext = require('./boundedContext')(eventStub, cmdHandler);
 
@@ -27,7 +28,8 @@ describe('tictactoe game context using stub', function() {
       id: "123"
     };
 
-    gameContext.handleCommand(testCmd);
-    should(execCmd.id).be.exactly("123")
+    var events = gameContext.handleCmd(testCmd);
+    should(executeCommand.id).be.exactly("123")
+    should(events.length).be.exactly(0);
   })
 })
