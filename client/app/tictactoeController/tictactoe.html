@@ -1,20 +1,6 @@
 <div ng-controller="TictactoeController">
 
-  <h3>{{name || 'NoName'}}</h3>
-
-
-  <div ng-hide="gameState.created">
-
-    <label for="name">Name</label>
-    <input id="name" ng-model="name">
-
-    <label for="userName">UserName</label>
-    <input id="userName" ng-model="userName">
-
-    <div>
-      <button ng-click="createGame()">Create Game</button>
-    </div>
-  </div>
+  <h3>{{gameState.name || 'NoName'}} - {{myTurn()}}</h3>
 
   <div ng-show="gameState.created">
     <a href="{{joinUrl}}">Send this link to your opponent.</a>
@@ -23,4 +9,11 @@
   <div ng-show="showJoinGame()">
   </div>
 
+  <div class="ticrow" ng-class="{myturn:myTurn()}" ng-repeat="row in gameState.board" ng-init="x=$index">
+    <div class="ticcell" ng-repeat="cell in row track by $index" ng-init="y=$index">
+      <span ng-click="placeMove([x,y])">{{x}}, {{y}} = {{cell}}</span>
+    </div>
+  </div>
+
+  <pre>{{gameState | json}}}</pre>
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('JoinGameCtrl', function ($scope, $http,$location, gameState) {
+  .controller('JoinGameCtrl', function ($scope, $http, $location, gameState, $state) {
 
     var thenHandleEvents = function (postPromise) {
       postPromise.then(function (data) {
@@ -9,9 +9,10 @@ angular.module('tictactoeApp')
       })
     };
 
+    $scope.gameState = gameState;
     var gameId = $location.search()['gameId'];
 
-    thenHandleEvents($http.get('/api/gameHistory/' + gameId));
+    thenHandleEvents($http.get('/api/gameHistory/' + $state.params.gameId));
 
     $scope.joinGame = function () {
       var user = {"userName": $scope.userName, side: "O"};
@@ -24,8 +25,9 @@ angular.module('tictactoeApp')
       );
       thenHandleEvents(joinPostPromise);
       joinPostPromise.then(function (response) {
+        $location.path('/tictactoe');
         $location.search('gameSide', 'O');
+        $location.search('gameId', gameState.id);
       });
-      gameState.me = user;
     };
   });

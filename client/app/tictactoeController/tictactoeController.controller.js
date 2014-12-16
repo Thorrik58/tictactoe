@@ -6,60 +6,72 @@ angular.module('tictactoeApp')
     var thenHandleEvents = function (postPromise) {
       postPromise.then(function (data) {
         $scope.gameState.mutate(data.data);
+      });
+
+      postPromise.then(function(){
+
+        if (mySide() === 'X'){
+          $scope.me = $scope.gameState.creatingUser;
+        } else {
+          $scope.me = $scope.gameState.joiningUser;
+        }
+
+        $scope.joinUrl = 'http://' + $location.host() +( $location.port() ? ':' + $location.port() :'') + '/join/' + $scope.gameState.id;
+
       })
     };
 
     $scope.gameState = gameState;
 
+    var gameId = $location.search()['gameId'];
 
+    thenHandleEvents($http.get('/api/gameHistory/' + gameId));
 
-    $scope.$watch(function () {
-      return $location.search()['gameSide']
-    }, function (value) {
-      value && ($scope.gameState.me.side = value);
-    });
+    function mySide() {
+      return $location.search()['gameSide'];
+    }
 
-    $scope.showJoinGame = function () {
-      console.debug("$location.search()['joinGame']", $location.search()['joinGame']);
-      return !!$location.search()['joinGame'];
+    $scope.myTurn = function () {
+      return mySide() === $scope.gameState.nextTurn
     };
 
     $scope.placeMove = function (coords) {
-      var user = $scope.gameState.me;
+      if(!$scope.myTurn()){
+        return;
+      }
       thenHandleEvents($http.post('/api/placeMove/', {
           id: $scope.gameState.id,
           cmd: "PlaceMove",
-          user: user,
+          user: $scope.me,
           timeStamp: "2014-12-02T11:29:29",
           move: {
             coordinates: coords,
-            side: 'X'
+            side: mySide()
           }
         }
       ));
-      $scope.gameState.me = user;
     };
 
   }).factory('gameState', function () {
     var gameState = {
-      me: {},
       created: false,
       board: [["", "", ""], ["", "", ""], ["", "", ""]],
       myTurn: false,
       mutate: function (events) {
-        console.debug("Mutating", events);
         var handlers = {
           'GameCreated': function (event, gameState) {
             gameState.created = true;
+            gameState.name = event.name;
             gameState.id = event.id;
+            gameState.creatingUser = event.user;
           },
           'GameJoined': function (event, gameState) {
-            gameState.otherPlayer = event.user;
+            gameState.joiningUser = event.user;
           },
           'MovePlaced': function (event, gameState) {
             var x = event.move.coordinates[0], y = event.move.coordinates[1];
             gameState.board[x][y] = event.move.side;
-            gameState.myTurn = event.move.side !== gameState.me.side
+            gameState.nextTurn = event.move.side === 'X' ? 'Y' : 'X';
           }
         };
         _.each(events, function (ev) {

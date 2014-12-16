@@ -11,6 +11,8 @@ describe('Controller: TictactoeControllerCtrl', function () {
     http = $http;
     httpBackend = $injector.get('$httpBackend');
     location = $location;
+    location.search('gameId','123');
+    location.search('gameSide','X');
 
     scope = $rootScope.$new();
     TictactoeControllerCtrl = $controller('TictactoeController', {
@@ -23,7 +25,50 @@ describe('Controller: TictactoeControllerCtrl', function () {
     httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should post move', function () {
+
+  it('should generate join url', function(){
+    getHistory();
+
+    expect(scope.joinUrl).toBe('http://server:80/join/123');
+  });
+
+  it('should init creator to side X', function(){
+    getHistory();
+
+    expect(scope.me.userName).toBe('Creator');
+  });
+
+  it('should init joiner to side O', function(){
+
+    location.search('gameSide','O');
+
+    getHistory();
+
+    expect(scope.me.userName).toBe('Joiner');
+  });
+
+
+  function getHistory() {
+    httpBackend.expectGET('/api/gameHistory/123').respond([{
+      event: "GameCreated",
+      name: "Game Number one",
+      id: "123",
+      user: {
+        userName: "Creator"
+      }
+    },{
+      event: "GameJoined",
+      name: "Game Number one",
+      id: "123",
+      user: {
+        userName: "Joiner"
+      }
+    }]);
+    httpBackend.flush();
+  }
+
+  it('should post side from current user', function () {
+    getHistory();
     httpBackend.expectPOST('/api/placeMove/', {
       id: "87687",
       cmd: "PlaceMove",
@@ -53,13 +98,56 @@ describe('Controller: TictactoeControllerCtrl', function () {
     scope.gameId = "123";
     scope.name = "TheSecondGame";
 
-    scope.gameState.me = {userName: "Max", side: 'X'};
+    scope.me = {userName: "Max", side: 'X'};
     scope.gameState.id = "87687";
 
     scope.placeMove([2, 0]);
     httpBackend.flush();
 
-    expect(scope.gameState.myTurn).toBe(false);
+    expect(scope.myTurn()).toBe(false);
+
+  });
+
+  it('should post side from current user', function () {
+    location.search('gameSide','O');
+
+    getHistory();
+    httpBackend.expectPOST('/api/placeMove/', {
+      id: "87687",
+      cmd: "PlaceMove",
+      user: {
+        userName: "Max",
+        side: "O"
+      },
+      timeStamp: "2014-12-02T11:29:29",
+      move: {
+        coordinates: [2, 1],
+        side: 'O'
+      }
+    }).respond([
+      {
+        event: "MovePlaced",
+        user: {
+          userName: "Max"
+        },
+        timeStamp: "2014-12-02T11:29:29",
+        move: {
+          coordinates: [2, 1],
+          side: 'O'
+        }
+      }
+    ]);
+
+    scope.gameId = "123";
+    scope.name = "TheSecondGame";
+
+    scope.me = {userName: "Max", side: 'O'};
+    scope.gameState.id = "87687";
+
+    scope.placeMove([2, 1]);
+    httpBackend.flush();
+
+    expect(scope.myTurn()).toBe(false);
 
   });
 });

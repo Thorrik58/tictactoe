@@ -15,6 +15,7 @@ angular.module('tictactoeApp')
         }
       );
       createPost.then(function (response) {
+        $location.url('/tictactoe');
         $location.search('gameId', response.data[0].id);
         $location.search('gameSide', 'X');
       });

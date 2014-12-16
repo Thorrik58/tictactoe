@@ -58,6 +58,7 @@ describe('Controller: CreateGameCtrl', function () {
 
     expect(location.search()['gameId']).toBe('12345');
     expect(location.search()['gameSide']).toBe('X');
+    expect(location.path()).toBe('/tictactoe');
 
   });
 });
