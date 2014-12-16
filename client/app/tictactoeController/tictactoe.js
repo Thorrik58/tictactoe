@@ -3,9 +3,9 @@
 angular.module('tictactoeApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('joinGame', {
-        url: '/join',
-        templateUrl: 'app/joinGame/joinGame.html',
+      .state('tictactoe', {
+        url: '/tictactoe',
+        templateUrl: 'app/tictactoeController/tictactoe.html',
         controller: 'JoinGameCtrl'
       });
   });

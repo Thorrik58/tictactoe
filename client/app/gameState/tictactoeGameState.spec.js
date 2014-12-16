@@ -9,7 +9,7 @@ describe('Factory: TictacToeState', function () {
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_gameState_) {
-    gameState = _gameState_;
+    gameState = _gameState_();
   }));
 
   afterEach(function () {
@@ -118,5 +118,37 @@ describe('Factory: TictacToeState', function () {
     );
 
     expect(gameState.nextTurn).toBe('X');
+  });
+
+  it('GameWon should set nextTurn to GameOver',function(){
+    gameState.me = {side: 'X'};
+    gameState.mutate([{
+        event: "GameWon",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }]
+    );
+
+    expect(gameState.nextTurn).toBe('GameOver');
+    expect(gameState.winner.userName).toBe("Max");
+  });
+
+  it('GameDraw should set nextTurn to GameOver',function(){
+    gameState.me = {side: 'X'};
+    gameState.mutate([{
+        event: "GameDraw",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }]
+    );
+
+    expect(gameState.nextTurn).toBe('GameOver');
+    expect(gameState.gameDraw).toBe(true);
   });
 });

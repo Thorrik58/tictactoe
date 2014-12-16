@@ -303,6 +303,49 @@ describe("Place move command", function() {
       }]
   })
 
-  /* jshint ignore:end */
 
-})
+  it('Should not emit game draw if won on last move.', function () {
+    given = [
+      createEvent,
+      joinEvent,
+      moveEvent([0,0],'X'),
+      moveEvent([0,1],'O'),
+      moveEvent([0,2],'O'),
+
+      moveEvent([1,0],'O'),
+      moveEvent([1,1],'O'),
+      moveEvent([1,2],'X'),
+
+      moveEvent([2,0],'X'),
+      moveEvent([2,2],'X')
+    ];
+
+    when =
+    {
+      cmd: "PlaceMove",
+      user: {
+        userName: "Max"
+      },
+      name: "TheFirstGame",
+      timeStamp: "2014-12-02T11:29:29",
+      move:{
+        coordinates:[2,1],
+        side:'O'
+      }
+    };
+    then = [
+      moveEvent([2,1],'O'),
+      {
+        event: "GameWon",
+        user: {
+          userName: "Max"
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+      }
+    ];
+
+
+    /* jshint ignore:end */
+
+})})

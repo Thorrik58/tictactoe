@@ -3,6 +3,8 @@
 angular.module('tictactoeApp')
   .controller('TictactoeController', function ($scope, $http, gameState, guid, $location, $timeout) {
 
+    $scope.gameState = gameState();
+
     var thenHandleEvents = function (postPromise) {
       postPromise.then(function (data) {
         $scope.gameState.mutate(data.data);
@@ -12,7 +14,9 @@ angular.module('tictactoeApp')
 
         if (mySide() === 'X'){
           $scope.me = $scope.gameState.creatingUser;
+          $scope.other = $scope.gameState.joiningUser;
         } else {
+          $scope.other = $scope.gameState.creatingUser;
           $scope.me = $scope.gameState.joiningUser;
         }
 
@@ -21,12 +25,12 @@ angular.module('tictactoeApp')
       })
     };
 
-    $scope.gameState = gameState;
 
     var gameId = $location.search()['gameId'];
 
     function refresh() {
       thenHandleEvents($http.get('/api/gameHistory/' + gameId));
+
       $timeout( refresh, 1000);
     }
 
@@ -42,7 +46,6 @@ angular.module('tictactoeApp')
 
     $scope.placeMove = function (coords) {
       if(!$scope.myTurn()){
-        console.debug("not my turn, returning. Next turn: ", gameState.nextTurn);
         return;
       }
       thenHandleEvents($http.post('/api/placeMove/', {

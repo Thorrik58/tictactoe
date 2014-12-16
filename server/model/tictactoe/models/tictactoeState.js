@@ -30,6 +30,14 @@ module.exports = function(history){
     }
   }
 
+  function gameWon(){
+
+    return _.reduce(gameScore, function(won, score){
+      return won || score === 3 || score === -3;
+
+    }, false);
+  }
+
   function processEvents(history){
       _.each(history, processEvent);
   };
@@ -41,19 +49,16 @@ module.exports = function(history){
     gameFull: function(){
       return gameFull;
     },
-    gameWon : function(){
-      return _.reduce(gameScore, function(won, score){
-          return won || score === 3 || score === -3;
-      }, false);
+    gameWon : gameWon,
+    gameDraw : function(){
+      if(gameWon()) return false;
+      return moveCount === gridSize*gridSize;
     },
     occupied : function(coords){
       var row = coords[0];
       var col = coords[1];
       var squareToken = gameGrid[row][col];
       return (squareToken === "X" || squareToken === "O");
-    },
-    gameDraw : function(){
-      return moveCount === gridSize*gridSize;
     }
   }
 };

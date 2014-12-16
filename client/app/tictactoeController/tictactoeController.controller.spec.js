@@ -4,20 +4,22 @@ describe('Controller: TictactoeControllerCtrl', function () {
 
   beforeEach(module('tictactoeApp'));
 
-  var TictactoeControllerCtrl, scope, httpBackend, http, location;
+  var TictactoeControllerCtrl, scope, httpBackend, http, location, timeout;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($injector, $controller, $rootScope, $http, $location) {
+  beforeEach(inject(function ($injector, $controller, $rootScope, $http, $location, $timeout) {
     http = $http;
+    timeout = $timeout;
     httpBackend = $injector.get('$httpBackend');
     location = $location;
-    location.search('gameId','123');
-    location.search('gameSide','X');
+    location.search('gameId', '123');
+    location.search('gameSide', 'X');
 
     scope = $rootScope.$new();
     TictactoeControllerCtrl = $controller('TictactoeController', {
       $scope: scope
     });
+
   }));
 
   afterEach(function () {
@@ -26,21 +28,21 @@ describe('Controller: TictactoeControllerCtrl', function () {
   });
 
 
-  it('should generate join url', function(){
+  it('should generate join url', function () {
     getHistory();
 
     expect(scope.joinUrl).toBe('http://server:80/join/123');
   });
 
-  it('should init creator to side X', function(){
+  it('should init creator to side X', function () {
     getHistory();
 
     expect(scope.me.userName).toBe('Creator');
   });
 
-  it('should init joiner to side O', function(){
+  it('should init joiner to side O', function () {
 
-    location.search('gameSide','O');
+    location.search('gameSide', 'O');
 
     getHistory();
 
@@ -56,7 +58,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
       user: {
         userName: "Creator"
       }
-    },{
+    }, {
       event: "GameJoined",
       name: "Game Number one",
       id: "123",
@@ -97,7 +99,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
     scope.gameId = "123";
     scope.name = "TheSecondGame";
 
-    location.search('gameSide','X');
+    location.search('gameSide', 'X');
     scope.me = {userName: "Max"};
     scope.gameState.id = "87687";
 
@@ -109,7 +111,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
   });
 
   it('should post side from current user O', function () {
-    location.search('gameSide','O');
+    location.search('gameSide', 'O');
 
     getHistory();
     httpBackend.expectPOST('/api/placeMove/', {
@@ -137,6 +139,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
       }
     ]);
 
+
     scope.gameId = "123";
     scope.name = "TheSecondGame";
     scope.gameState.nextTurn = 'O';
@@ -149,5 +152,29 @@ describe('Controller: TictactoeControllerCtrl', function () {
 
     expect(scope.myTurn()).toBe(false);
 
+  });
+
+  it('should refresh history once every one second', function () {
+    getHistory();
+
+    httpBackend.expectGET('/api/gameHistory/123').respond([{
+      event: "GameCreated",
+      name: "Game Number one",
+      id: "123",
+      user: {
+        userName: "Creator"
+      }
+    }, {
+      event: "GameJoined",
+      name: "Game Number one",
+      id: "123",
+      user: {
+        userName: "Joiner"
+      }
+    }]);
+
+    timeout.flush();
+
+    httpBackend.flush();
   });
 });

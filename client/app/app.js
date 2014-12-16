@@ -8,18 +8,8 @@ angular.module('tictactoeApp', [
   'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $stateProvider.state('join', {
-      url: "/join/:gameId",
-      templateUrl:"/app/joinGame/joinGame.html"
-    }).state('create', {
-      url:"/",
-      templateUrl:"/app/createGame/createGame.html"
-    }).state('tictactoe', {
-      url:"/tictactoe",
-      templateUrl:"/app/tictactoeController/tictactoe.html"
-    });
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('/create');
 
     $locationProvider.html5Mode(true);
   }).value('guid', function() {

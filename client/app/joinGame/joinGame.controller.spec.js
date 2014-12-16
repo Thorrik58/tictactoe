@@ -22,33 +22,33 @@ describe('Controller: JoinGameCtrl', function () {
     });
   }));
 
-  /*
-   it('should ask to join game if game id already in scope, and assign me to O', function () {
-   httpBackend.expectGET('/api/gameHistory/123').respond( [{
-   event: "GameCreated",
-   name:"Game Number one",
-   id : "123"
-   }]);
-   httpBackend.flush();
-   httpBackend.expectPOST('/api/joinGame/', {
-   id: "123",
-   cmd: "JoinGame",
-   user: {
-   userName: "Max",
-   side: "O"
-   },
-   timeStamp: "2014-12-02T11:29:29"
-   }).respond([
-   {event: "GameJoined"}
-   ]
-   );
-   scope.userName = "Max";
-   scope.joinGame();
-   httpBackend.flush();
-   expect(location.search()['gameSide']).toBe('O');
-   expect(location.search()['gameId']).toBe('123');
-   expect(location.path()).toBe('/tictactoe');
-   });
-   */
 
+   it('should ask to join game if game id already in scope, and assign me to O', function () {
+     httpBackend.expectGET('/api/gameHistory/123').respond( [{
+     event: "GameCreated",
+     name:"Game Number one",
+     id : "123"
+   }]);
+     httpBackend.expectGET("app/main/main.html").respond('');
+     httpBackend.flush();
+     httpBackend.expectPOST('/api/joinGame/', {
+     id: "123",
+     cmd: "JoinGame",
+     user: {
+     userName: "Max",
+     side: "O"
+     },
+       timeStamp: "2014-12-02T11:29:29"
+     }).respond([
+         {event: "GameJoined"}
+       ]
+     );
+     scope.userName = "Max";
+     scope.joinGame();
+     httpBackend.expectGET('app/tictactoeController/tictactoe.html').respond('');
+     httpBackend.flush();
+     expect(location.search()['gameSide']).toBe('O');
+     expect(location.search()['gameId']).toBe('123');
+     expect(location.path()).toBe('/tictactoe');
+     });
 });
