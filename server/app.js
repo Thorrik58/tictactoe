@@ -17,12 +17,15 @@ var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);
 
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
-//app config
+app.eventStore = require('./eventStore/memoryStore')();
+console.debug("Instantiated app");
+
 app.appName ="TicTacToe";
 
 // Expose app

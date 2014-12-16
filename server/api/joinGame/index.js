@@ -2,14 +2,13 @@
 
 var express = require('express');
 
-var controller = require('../command.controller.js');
+var controller = require('../command.controller');
 
 
 module.exports = function(app){
 
   var router = express.Router();
 
-  //console.debug('Adding post to router');
   router.post('/', controller.executeCommand);
 
   return {

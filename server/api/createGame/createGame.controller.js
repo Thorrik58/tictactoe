@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 var _ = require('lodash');
 var boundedContext = require('../../model/tictactoe/boundedContext/boundedContext');
@@ -19,3 +19,4 @@ exports.createGame = function(req, res) {
   //console.debug("Create game", result, req.body);
   res.json(result);
 };
+*/

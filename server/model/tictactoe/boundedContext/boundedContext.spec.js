@@ -2,14 +2,17 @@ var should = require('should');
 var _ = require('lodash');
 
 describe('tictactoe game context using stub', function() {
-  it('should route command to instantiated tictactoe game with event stream from storage', function()
-  {
-    var calledWithEventStoreId = undefined;
+  it('should route command to instantiated tictactoe game with event stream from store and return and store generated events.', function() {
+    var calledWithEventStoreId;
+    var storedEvents;
 
     var eventStub = {
       loadEvents: function(modelId){
         calledWithEventStoreId = modelId;
         return[];
+      },
+      storeEvents : function(aggregateId, events) {
+        storedEvents = events;
       }
     };
 
@@ -36,16 +39,20 @@ describe('tictactoe game context using stub', function() {
     should(executedCommand.id).be.exactly("123")
     should(calledWithEventStoreId).be.exactly("123");
     should(events.length).be.exactly(0);
+    should(storedEvents).be.exactly(events);
   })
 
   it('should route command to instantiated tictactoe game with event stream from store and return generated events, using mock style tests.', function(){
 
     var jm = require('jsmockito').JsMockito;
     jm.Integration.importTo(global);
+    /* global spy,when */
 
     var mockStore = spy({
       loadEvents : function(){
-    }
+    },
+      storeEvents : function() {
+      }
     });
 
     console.debug(mockStore)
@@ -72,7 +79,7 @@ describe('tictactoe game context using stub', function() {
     gameContext.handleCmd(testCmd);
 
     jm.verify(mockStore).loadEvents('123');
-
+    jm.verify(mockStore).storeEvents('123');
     jm.verify(mockTicTacToe).executeCommand(testCmd);
 
   })

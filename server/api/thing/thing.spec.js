@@ -6,6 +6,7 @@ var request = require('supertest');
 
 describe('GET /api/things', function() {
 
+  console.debug("test app  ........ ", app);
   it('should respond with JSON array', function(done) {
     request(app)
       .get('/api/things')

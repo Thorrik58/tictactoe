@@ -36,7 +36,7 @@ function moveEvent(coordinates, side){
   };
 }
 
-
+/* jshint ignore:start */
 describe("Place move command", function() {
   var given, when, then;
 
@@ -302,5 +302,7 @@ describe("Place move command", function() {
         timeStamp: "2014-12-02T11:29:29"
       }]
   })
+
+  /* jshint ignore:end */
 
 })
