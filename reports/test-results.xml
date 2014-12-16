@@ -1,26 +1,35 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2014-12-09T20:49:19" id="0" hostname="Gulaugurs-MacBook-Pro.local" tests="17" errors="0" failures="0" time="0.07">
+  <testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2014-12-11T13:45:19" id="0" hostname="Gulaugurs-MacBook-Pro.local" tests="17" errors="0" failures="1" time="0.067">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
     </properties>
-    <testcase name="should post variables from scope for guid, name and userName and process resulting events, and assign me to X" time="0.024" classname="PhantomJS 1.9.8 (Mac OS X).Controller: CreateGameCtrl"/>
+    <testcase name="should post variables from scope for guid, name and userName and process resulting events, and assign me to X" time="0.022" classname="PhantomJS 1.9.8 (Mac OS X).Controller: CreateGameCtrl"/>
     <testcase name="Should add other player to game state when gameJoined" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="Should store game id and name from game created in game state." time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="Should add moves 0,1 to game board" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="Should add move 2,2 to board." time="0.005" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="Should mark nextTurn as opposite from last event." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="Nextturn should default to X" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="GameWon should set nextTurn to GameOver" time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should store game id and name from game created in game state." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should add moves 0,1 to game board" time="0.004" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should add move 2,2 to board." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should mark nextTurn as opposite from last event." time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Nextturn should default to X" time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="GameWon should set nextTurn to GameOver" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
     <testcase name="GameDraw should set nextTurn to GameOver" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
-    <testcase name="should ask to join game if game id already in scope, and assign me to O" time="0.005" classname="PhantomJS 1.9.8 (Mac OS X).Controller: JoinGameCtrl"/>
-    <testcase name="should attach a list of things to the scope" time="0.007" classname="PhantomJS 1.9.8 (Mac OS X).Controller: MainCtrl"/>
+    <testcase name="should ask to join game if game id already in scope, and assign me to O" time="0.011" classname="PhantomJS 1.9.8 (Mac OS X).Controller: JoinGameCtrl"/>
+    <testcase name="should attach a list of things to the scope" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: MainCtrl"/>
     <testcase name="should generate join url" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
-    <testcase name="should init creator to side X" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
-    <testcase name="should init joiner to side O" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
+    <testcase name="should init creator to side X" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
+    <testcase name="should init joiner to side O" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
     <testcase name="should post side from current user X" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
-    <testcase name="should post side from current user O" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
-    <testcase name="should refresh history once every one second" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
+    <testcase name="should post side from current user O" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
+    <testcase name="should refresh history once every one second" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl">
+      <failure type="">Error: No pending request to flush !
+        at /Users/gulli/src/ru/tictactoe/client/bower_components/angular-mocks/angular-mocks.js:1524
+        at /Users/gulli/src/ru/tictactoe/client/app/tictactoeController/tictactoeController.controller.spec.js:178
+      </failure>
+      <failure type="">Error: Unsatisfied requests: GET /api/gameHistory/123
+        at /Users/gulli/src/ru/tictactoe/client/bower_components/angular-mocks/angular-mocks.js:1557
+        at /Users/gulli/src/ru/tictactoe/client/app/tictactoeController/tictactoeController.controller.spec.js:26
+      </failure>
+    </testcase>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>
