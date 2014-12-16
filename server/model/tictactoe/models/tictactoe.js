@@ -12,6 +12,7 @@ module.exports = function(history){
       var cmdHandlers = {
         "CreateGame": function (cmd) {
           return [{
+            id: cmd.id,
             event: "GameCreated",
             user: cmd.user,
             name: cmd.name,
@@ -20,6 +21,7 @@ module.exports = function(history){
         },
         "JoinGame": function (cmd) {
           if (gameState.gameFull()) {
+            id: cmd.id,
             console.log("Game full");
             return [{
               event: "FullGameJoinAttempted",
@@ -30,6 +32,7 @@ module.exports = function(history){
           }
 
           return [{
+            id: cmd.id,
             event: "GameJoined",
             user: cmd.user,
             name: cmd.name,
@@ -40,6 +43,7 @@ module.exports = function(history){
         "PlaceMove": function (cmd) {
           if (gameState.occupied(cmd.move.coordinates)) {
             return [{
+              id: cmd.id,
               event: "IllegalMove",
               user: cmd.user,
               name: cmd.name,
@@ -48,6 +52,7 @@ module.exports = function(history){
             }]
           }
           var events = [{
+            id: cmd.id,
             event: "MovePlaced",
             user: cmd.user,
             name: cmd.name,
@@ -59,6 +64,7 @@ module.exports = function(history){
           if (gameState.gameWon()) {
             events.push(
               {
+                id: cmd.id,
                 event: "GameWon",
                 user: cmd.user,
                 name: cmd.name,
@@ -70,6 +76,7 @@ module.exports = function(history){
           if(gameState.gameDraw()){
             events.push(
               {
+                id: cmd.id,
                 event: "GameDraw",
                 user: cmd.user,
                 name: cmd.name,

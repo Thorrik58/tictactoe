@@ -1,17 +1,26 @@
-<div>THIS IS THE HTML</div>
-
 <div ng-controller="TictactoeController">
 
-  <label for="name">Name</label>
-  <input id="name" ng-model="name">
+  <h3>{{name || 'NoName'}}</h3>
 
-  <label for="userName">UserName</label>
-  <input id="userName" ng-model="userName">
 
-  <div>
-    {{name}}
+  <div ng-hide="gameState.created">
 
-    <button ng-click="createGame()">Create Game</button>
+    <label for="name">Name</label>
+    <input id="name" ng-model="name">
+
+    <label for="userName">UserName</label>
+    <input id="userName" ng-model="userName">
+
+    <div>
+      <button ng-click="createGame()">Create Game</button>
+    </div>
+  </div>
+
+  <div ng-show="gameState.created">
+    <a href="{{joinUrl}}">Send this link to your opponent.</a>
+  </div>
+
+  <div ng-show="showJoinGame()">
   </div>
 
 </div>

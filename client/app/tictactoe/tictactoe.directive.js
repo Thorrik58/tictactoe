@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 angular.module('tictactoeApp')
   .directive('tictactoe', function () {
@@ -10,3 +10,4 @@ angular.module('tictactoeApp')
       }
     };
   });
+*/

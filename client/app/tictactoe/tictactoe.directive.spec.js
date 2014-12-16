@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 describe('Directive: tictactoe', function () {
 
@@ -17,4 +17,4 @@ describe('Directive: tictactoe', function () {
     element = $compile(element)(scope);
     expect(element.text()).toBe('this is the tictactoe directive');
   }));
-});
+});*/

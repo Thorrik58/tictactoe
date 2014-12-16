@@ -1,13 +1,28 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2014-12-05T11:48:22" id="0" hostname="Gulaugurs-MacBook-Pro.local" tests="3" errors="0" failures="0" time="0.024">
+  <testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2014-12-08T21:26:40" id="0" hostname="Gulaugurs-MacBook-Pro.local" tests="10" errors="0" failures="0" time="0.042">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
     </properties>
-    <testcase name="should attach a list of things to the scope" time="0.016" classname="PhantomJS 1.9.8 (Mac OS X).Controller: MainCtrl"/>
-    <testcase name="should make hidden element visible" time="0.006" classname="PhantomJS 1.9.8 (Mac OS X).Directive: tictactoe"/>
-    <testcase name="should post variables from scope for name and userName and process resulting events" time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
-    <system-out><![CDATA[
+    <testcase name="should post variables from scope for guid, name and userName and process resulting events, and assign me to X" time="0.02" classname="PhantomJS 1.9.8 (Mac OS X).Controller: CreateGameCtrl"/>
+    <testcase name="should ask to join game if game id already in scope, and assign me to O" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: JoinGameCtrl"/>
+    <testcase name="should attach a list of things to the scope" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Controller: MainCtrl"/>
+    <testcase name="should post move" time="0.005" classname="PhantomJS 1.9.8 (Mac OS X).Controller: TictactoeControllerCtrl"/>
+    <testcase name="Should add other player to game state when gameJoined" time="0.003" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should store game id from game created in game state." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should add moves 0,1 to game board" time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should add move 2,2 to board." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should mark myTurn true if last event was from other side." time="0.002" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <testcase name="Should mark myTurn false if last event was from my side." time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Factory: TictacToeState"/>
+    <system-out><![CDATA[PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'GameCreated', name: 'Game Number one', id: '123'}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'GameJoined'}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'MovePlaced', user: Object{userName: ...}, timeStamp: '2014-12-02T11:29:29', move: Object{coordinates: ..., side: ...}}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'GameJoined', user: Object{userName: ..., side: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29'}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'GameCreated', id: '198299', user: Object{userName: ..., side: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29'}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'MovePlaced', user: Object{userName: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29', move: Object{coordinates: ..., side: ...}}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'MovePlaced', user: Object{userName: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29', move: Object{coordinates: ..., side: ...}}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'MovePlaced', user: Object{userName: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29', move: Object{coordinates: ..., side: ...}}]
+,PhantomJS 1.9.8 (Mac OS X) DEBUG: 'Mutating', [Object{event: 'MovePlaced', user: Object{userName: ...}, name: 'TheFirstGame', timeStamp: '2014-12-02T11:29:29', move: Object{coordinates: ..., side: ...}}]
 ]]></system-out>
     <system-err/>
   </testsuite>

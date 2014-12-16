@@ -2,15 +2,15 @@
 
 describe('Controller: TictactoeControllerCtrl', function () {
 
-  // load the controller's module
   beforeEach(module('tictactoeApp'));
 
-  var TictactoeControllerCtrl, scope, httpBackend, http;
+  var TictactoeControllerCtrl, scope, httpBackend, http, location;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($injector, $controller, $rootScope, $http) {
+  beforeEach(inject(function ($injector, $controller, $rootScope, $http, $location) {
     http = $http;
     httpBackend = $injector.get('$httpBackend');
+    location = $location;
 
     scope = $rootScope.$new();
     TictactoeControllerCtrl = $controller('TictactoeController', {
@@ -23,29 +23,43 @@ describe('Controller: TictactoeControllerCtrl', function () {
     httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should post variables from scope for name and userName and process resulting events', function () {
-    httpBackend.expectPOST('/api/createGame/', {
-      id : "123",
-      cmd: "CreateGame",
+  it('should post move', function () {
+    httpBackend.expectPOST('/api/placeMove/', {
+      id: "87687",
+      cmd: "PlaceMove",
       user: {
-        userName: "Thorri"
+        userName: "Max",
+        side: "X"
       },
-      name: "TheSecondGame",
-      timeStamp: "2014-12-02T11:29:29"
-    }).respond({
-      response: [
-        {}
-      ]
-    });
+      timeStamp: "2014-12-02T11:29:29",
+      move: {
+        coordinates: [2, 0],
+        side: 'X'
+      }
+    }).respond([
+      {
+        event: "MovePlaced",
+        user: {
+          userName: "Max"
+        },
+        timeStamp: "2014-12-02T11:29:29",
+        move: {
+          coordinates: [2, 0],
+          side: 'X'
+        }
+      }
+    ]);
 
-    scope.name ="TheSecondGame";
+    scope.gameId = "123";
+    scope.name = "TheSecondGame";
 
-    scope.userName = "Thorri";
+    scope.gameState.me = {userName: "Max", side: 'X'};
+    scope.gameState.id = "87687";
 
-    scope.createGame();
+    scope.placeMove([2, 0]);
     httpBackend.flush();
 
-    expect(scope.processedEvents.length).toBe(1);
+    expect(scope.gameState.myTurn).toBe(false);
 
   });
 });
