@@ -37,6 +37,7 @@ angular.module('tictactoeApp')
 
     $scope.placeMove = function (coords) {
       if(!$scope.myTurn()){
+        console.debug("not my turn, returning. Next turn: ", gameState.nextTurn);
         return;
       }
       thenHandleEvents($http.post('/api/placeMove/', {
@@ -56,7 +57,7 @@ angular.module('tictactoeApp')
     var gameState = {
       created: false,
       board: [["", "", ""], ["", "", ""], ["", "", ""]],
-      myTurn: false,
+      nextTurn:'X',
       mutate: function (events) {
         var handlers = {
           'GameCreated': function (event, gameState) {

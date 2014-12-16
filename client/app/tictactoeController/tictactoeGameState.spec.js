@@ -105,22 +105,18 @@ describe('Factory: TictacToeState', function () {
     expect(gameState.nextTurn).toBe('Y');
   });
 
-  it('Should mark myTurn false if last event was from my side.', function () {
+  it('Nextturn should default to X', function () {
     gameState.me = {side: 'X'};
     gameState.mutate([{
-        event: "MovePlaced",
+        event: "GameCreated",
         user: {
           userName: "Max"
         },
         name: "TheFirstGame",
-        timeStamp: "2014-12-02T11:29:29",
-        move: {
-          coordinates: [2, 2],
-          side: 'X'
-        }
+        timeStamp: "2014-12-02T11:29:29"
       }]
     );
 
-    expect(gameState.myTurn).toBe(false);
+    expect(gameState.nextTurn).toBe('X');
   });
 });
