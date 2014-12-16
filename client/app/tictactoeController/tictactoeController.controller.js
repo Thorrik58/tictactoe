@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('TictactoeController', function ($scope, $http, gameState, guid, $location) {
+  .controller('TictactoeController', function ($scope, $http, gameState, guid, $location, $timeout) {
 
     var thenHandleEvents = function (postPromise) {
       postPromise.then(function (data) {
@@ -25,7 +25,12 @@ angular.module('tictactoeApp')
 
     var gameId = $location.search()['gameId'];
 
-    thenHandleEvents($http.get('/api/gameHistory/' + gameId));
+    function refresh() {
+      thenHandleEvents($http.get('/api/gameHistory/' + gameId));
+      $timeout( refresh, 1000);
+    }
+
+    refresh();
 
     function mySide() {
       return $location.search()['gameSide'];
@@ -52,33 +57,4 @@ angular.module('tictactoeApp')
         }
       ));
     };
-
-  }).factory('gameState', function () {
-    var gameState = {
-      created: false,
-      board: [["", "", ""], ["", "", ""], ["", "", ""]],
-      nextTurn:'X',
-      mutate: function (events) {
-        var handlers = {
-          'GameCreated': function (event, gameState) {
-            gameState.created = true;
-            gameState.name = event.name;
-            gameState.id = event.id;
-            gameState.creatingUser = event.user;
-          },
-          'GameJoined': function (event, gameState) {
-            gameState.joiningUser = event.user;
-          },
-          'MovePlaced': function (event, gameState) {
-            var x = event.move.coordinates[0], y = event.move.coordinates[1];
-            gameState.board[x][y] = event.move.side;
-            gameState.nextTurn = event.move.side === 'X' ? 'Y' : 'X';
-          }
-        };
-        _.each(events, function (ev) {
-          handlers[ev.event] && handlers[ev.event](ev, gameState)
-        })
-      }
-    }
-    return gameState;
   });

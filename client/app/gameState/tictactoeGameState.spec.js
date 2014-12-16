@@ -102,7 +102,7 @@ describe('Factory: TictacToeState', function () {
       }]
     );
 
-    expect(gameState.nextTurn).toBe('Y');
+    expect(gameState.nextTurn).toBe('O');
   });
 
   it('Nextturn should default to X', function () {
