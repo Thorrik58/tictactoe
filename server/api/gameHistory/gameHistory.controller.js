@@ -8,7 +8,7 @@ var app = require('../../app');
 exports.index = function(req, res ) {
   console.debug("get by id", req.params.id);
   if(!app.eventStore){
-    app.eventStore = require('../eventStore/memoryStore')();
+    app.eventStore = require('../../eventstore/memorystore')();
   }
 
   res.json(app.eventStore.loadEvents(req.params.id));

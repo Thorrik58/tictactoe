@@ -1,4 +1,4 @@
-<div>
+<div class="container">
 
   <h3>Game on - {{gameState.name || 'NoName'}} </h3>
 
@@ -22,9 +22,13 @@
     GAME DRAW!
   </div>
 
-  <div class="ticrow" ng-repeat="row in gameState.board" ng-init="x=$index">
-    <div class="ticcell" ng-class="cell" ng-repeat="cell in row track by $index" ng-init="y=$index">
-      <span ng-click="placeMove([x,y])">< {{cell}} ></span>
+  <div class="board">
+    <div class="ticrow" ng-repeat="row in gameState.board" ng-init="x=$index">
+      <div class="ticcell" ng-class="cell + ' ' + x + '-' + y" ng-repeat="cell in row track by $index" ng-init="y=$index" ng-click="placeMove([x,y])">
+        <span> {{cell}} </span>
+      </div>
     </div>
+
   </div>
+
 </div>

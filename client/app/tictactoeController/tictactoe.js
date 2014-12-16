@@ -6,6 +6,6 @@ angular.module('tictactoeApp')
       .state('tictactoe', {
         url: '/tictactoe',
         templateUrl: 'app/tictactoeController/tictactoe.html',
-        controller: 'JoinGameCtrl'
+        controller: 'TictactoeController'
       });
   });

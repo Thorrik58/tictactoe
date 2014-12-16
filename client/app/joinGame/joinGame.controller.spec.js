@@ -22,14 +22,13 @@ describe('Controller: JoinGameCtrl', function () {
     });
   }));
 
-
    it('should ask to join game if game id already in scope, and assign me to O', function () {
      httpBackend.expectGET('/api/gameHistory/123').respond( [{
      event: "GameCreated",
      name:"Game Number one",
      id : "123"
    }]);
-     httpBackend.expectGET("app/main/main.html").respond('');
+     httpBackend.expectGET("app/createGame/createGame.html").respond('');
      httpBackend.flush();
      httpBackend.expectPOST('/api/joinGame/', {
      id: "123",

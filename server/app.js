@@ -24,7 +24,6 @@ server.listen(config.port, config.ip, function () {
 });
 
 app.eventStore = require('./eventStore/memoryStore')();
-console.debug("Instantiated app");
 
 app.appName ="TicTacToe";
 

@@ -8,8 +8,10 @@ angular.module('tictactoeApp', [
   'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+
     $urlRouterProvider
-      .otherwise('/create');
+      .otherwise('/');
 
     $locationProvider.html5Mode(true);
   }).value('guid', function() {
@@ -22,6 +24,5 @@ angular.module('tictactoeApp', [
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
     };
-    console.debug("guid", calculate());
     return calculate();
   });

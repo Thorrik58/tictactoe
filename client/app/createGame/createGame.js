@@ -3,7 +3,7 @@
 angular.module('tictactoeApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('createGame', {
+      .state('create', {
         url: '/create',
         templateUrl: 'app/createGame/createGame.html',
         controller: 'CreateGameCtrl'
