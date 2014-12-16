@@ -4,12 +4,12 @@ describe('Controller: TictactoeControllerCtrl', function () {
 
   beforeEach(module('tictactoeApp'));
 
-  var TictactoeControllerCtrl, scope, httpBackend, http, location, timeout;
+  var TictactoeControllerCtrl, scope, httpBackend, http, location, interval;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($injector, $controller, $rootScope, $http, $location, $timeout) {
+  beforeEach(inject(function ($injector, $controller, $rootScope, $http, $location, $interval) {
     http = $http;
-    timeout = $timeout;
+    interval = $interval;
     httpBackend = $injector.get('$httpBackend');
     location = $location;
     location.search('gameId', '123');
@@ -173,7 +173,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
       }
     }]);
 
-    timeout.flush();
+    interval.flush(1001);
 
     httpBackend.flush();
   });

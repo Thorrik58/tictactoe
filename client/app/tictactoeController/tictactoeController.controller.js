@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tictactoeApp')
-  .controller('TictactoeController', function ($scope, $http, gameState, guid, $location, $timeout) {
+  .controller('TictactoeController', function ($scope, $http, gameState, guid, $location, $interval) {
 
     $scope.gameState = gameState();
 
@@ -30,11 +30,10 @@ angular.module('tictactoeApp')
 
     function refresh() {
       thenHandleEvents($http.get('/api/gameHistory/' + gameId));
-
-      $timeout( refresh, 1000);
     }
 
     refresh();
+    $interval(refresh, 1000);
 
     function mySide() {
       return $location.search()['gameSide'];

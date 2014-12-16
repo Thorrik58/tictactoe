@@ -28,7 +28,7 @@ describe('Controller: JoinGameCtrl', function () {
      name:"Game Number one",
      id : "123"
    }]);
-     httpBackend.expectGET("app/createGame/createGame.html").respond('');
+     httpBackend.expectGET("app/createGame/createGame.html").respond(''); //this fails, due to sending main.html
      httpBackend.flush();
      httpBackend.expectPOST('/api/joinGame/', {
      id: "123",
