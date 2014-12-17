@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "connecting to testing server"
-ssh -o StrictHostKeyChecking=no root@188.226.144.159 "
+ssh -o StrictHostKeyChecking=no root@128.199.45.189 "
 
 docker kill ttt
 
