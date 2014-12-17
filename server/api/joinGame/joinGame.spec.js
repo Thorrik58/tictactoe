@@ -24,6 +24,7 @@ describe('POST /api/joinGame', function() {
       .send(command)
       .end(function(err, res) {
         if (err) return done(err);
+        console.debug(res.body);
         res.body.should.be.instanceof(Array);
         done();
       });
