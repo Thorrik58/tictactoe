@@ -9,8 +9,8 @@ describe('Tictactoe game play', function () {
 
   beforeEach(function () {
     browser.get('/');
-    createPage = require('./creategame.po');
-    joinPage = require('./joingame.po');
+    createPage = require('./createGame.po');
+    joinPage = require('./joinGame.po');
   });
 
   function placeMove(cellElement, expected) {
