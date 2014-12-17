@@ -4,5 +4,5 @@ set -e
 export PATH=$PATH:/usr/local/bin
 
 npm install protractor
-webdriver-manager update
+#webdriver-manager update
 protractor protractor.conf.js
