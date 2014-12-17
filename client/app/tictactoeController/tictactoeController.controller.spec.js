@@ -173,7 +173,7 @@ describe('Controller: TictactoeControllerCtrl', function () {
       }
     }]);
 
-    interval.flush(1001);
+    interval.flush(2001);
 
     httpBackend.flush();
   });
