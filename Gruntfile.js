@@ -71,7 +71,7 @@ module.exports = function (grunt) {
       },
       mochaTest: {
         files: ['server/**/*.js'],
-        tasks: ['env:commit', 'mochaTest']
+        tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
         files: [
@@ -433,18 +433,10 @@ module.exports = function (grunt) {
     },
 
     mochaTest: {
-      test:{
-        options: {
-          reporter: 'spec'
-        },
-        src: ['server/**/*.spec.js']
+      options: {
+        reporter: 'spec'
       },
-      dbTest: {
-        options: {
-          reporter: 'spec'
-        },
-        src: ['server/**/*.dbspec.js']
-      }
+      src: ['server/**/*.spec.js']
     },
 
     protractor: {
@@ -462,7 +454,7 @@ module.exports = function (grunt) {
 
     env: {
       commit: {
-        NODE_ENV: 'commit'
+        NODE_ENV: 'commit' //added
       },
       test: {
         NODE_ENV: 'test'
@@ -486,7 +478,7 @@ module.exports = function (grunt) {
         files: {
           '.tmp/app/app.css' : '<%= yeoman.client %>/app/app.less'
         }
-      }
+      },
     },
 
     injector: {
@@ -550,7 +542,7 @@ module.exports = function (grunt) {
           ]
         }
       }
-    }
+    },
   });
 
   // Used for delaying livereload until after server has restarted
@@ -611,16 +603,8 @@ module.exports = function (grunt) {
     if (target === 'server') {
       return grunt.task.run([
         'env:all',
-        'env:commit',
-        'mochaTest:test'
-      ]);
-    }
-
-    else if (target === 'serverdb') {
-      return grunt.task.run([
-        'env:all',
         'env:test',
-        'mochaTest:dbTest'
+        'mochaTest'
       ]);
     }
 
