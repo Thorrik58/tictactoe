@@ -22,7 +22,7 @@ describe('Tictactoe game play', function() {
     game.expectFirstCellShowing();
 
     game.joinWithOtherSide(function(otherside){
-      otherside.join("Thorri");
+      otherside.join("Tom");
 
       browser.wait(function () {
         return browser.isElementPresent(by.css('#gameboard')).then(function (el) {
